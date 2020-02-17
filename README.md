@@ -16,7 +16,7 @@ For this you will need:
 
 ## Usage
 
-Once you start fiduwisi, a window should appear that looks something like this: ![start-up](screenshots/Screenshot_1.png)
+Once you start fiduwisi, a window should appear that looks something like this: ![start-up](screenshots/Screenshot_1.png =100x20)
 
 For a simple introduction to the mechanics of fiduwisi, see the [Tutorial](#markdown-header-Tutorial)
 
