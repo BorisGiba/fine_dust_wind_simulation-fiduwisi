@@ -16,4 +16,19 @@ For this you will need:
 
 ## Usage
 
-Once you start fiduwisi, a window should appear that looks something like this: ![text](screenshots/Screenshot_1.png)
+Once you start fiduwisi, a window should appear that looks something like this: ![start-up](screenshots/Screenshot_1.png)
+
+For a simple introduction to the mechanics of fiduwisi, see the [Tutorial](#markdown-header-Tutorial)
+
+You can start/stop the simulation or perform a single iteration step using the buttons at the top right.
+The grid on the left will display the current state of the simulation live.
+
+## Tutorial
+
+You can click on "help/legend" to quickly find all of the necessary details about fiduwisi.
+The most important pages are shown here:
+![help1](screenshots/Screenshot_2.png)
+![help2](screenshots/Screenshot_3.png)
+![help3](screenshots/Screenshot_4.png)
+![help4](screenshots/Screenshot_5.png)
+![help5](screenshots/Screenshot_6.png)
