@@ -18,7 +18,6 @@ For this you will need:
 
 Once you start fiduwisi, a window should appear that looks something like this: ![start-up](screenshots/Screenshot_1.png)
 
-<a href="url"><img src="screenshots/Screenshot_1.png" align="left" height="48" width="48" ></a>
 
 For a simple introduction to the mechanics of fiduwisi, see the [Tutorial](#markdown-header-Tutorial)
 
@@ -29,8 +28,6 @@ The grid on the left will display the current state of the simulation live.
 
 You can click on "help/legend" to quickly find all of the necessary details about fiduwisi.
 The most important pages are shown here:
-![help1](screenshots/Screenshot_2.png)
-![help2](screenshots/Screenshot_3.png)
-![help3](screenshots/Screenshot_4.png)
-![help4](screenshots/Screenshot_5.png)
-![help5](screenshots/Screenshot_6.png)
+<a href="url"><img src="screenshots/Screenshot_2.png" align="left" height="408.72" width="465.66" ></a> <a href="url"><img src="screenshots/Screenshot_3.png" align="right" height="408.72" width="465.66" ></a>
+<a href="url"><img src="screenshots/Screenshot_4.png" align="left" height="408.72" width="465.66" ></a> <a href="url"><img src="screenshots/Screenshot_5.png" align="right" height="408.72" width="465.66" ></a>
+<a href="url"><img src="screenshots/Screenshot_6.png" align="left" height="408.72" width="465.66" ></a>
