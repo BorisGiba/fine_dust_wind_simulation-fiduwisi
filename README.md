@@ -16,7 +16,9 @@ For this you will need:
 
 ## Usage
 
-Once you start fiduwisi, a window should appear that looks something like this: ![start-up](screenshots/Screenshot_1.png =100x20)
+Once you start fiduwisi, a window should appear that looks something like this: ![start-up](screenshots/Screenshot_1.png)
+
+<a href="url"><img src="screenshots/Screenshot_1.png" align="left" height="48" width="48" ></a>
 
 For a simple introduction to the mechanics of fiduwisi, see the [Tutorial](#markdown-header-Tutorial)
 
