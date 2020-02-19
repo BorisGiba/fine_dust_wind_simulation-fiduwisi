@@ -1,92 +1,18 @@
-#grid
-#staubknoten
-#züfalliger knoten
-#-> windstoß
-#evlt nicht 100% des Staubs vom Wind weggetragen werden
-#nichtlineare Wind
-#Winde mit versch. Dicke
-#immer Teile vom Staub werden so mitgezogen (50%->50%->etc.)
-#alle Parmater (Wachstum der Städte etc.) durch GUI anpassbar
-#method hide winds
-#method show cities
-#method clear winds
-#log emission rate increase
-#dynamically scaling window
-#high values scatter
-#input->dynamically change parameters, re-generate cities
-#change colours? input
-#buttons same width
-#change speed dynamically
-#choose one large city (/city-complex) -> plot dust concentration over time
-#different wind types (e.g. rain clouds) -> different cell colouring (are gradients possible?)
-
-#config wachstum der regionen - ne, zu viele Einstellungen
-#show cities - cities nicht wegmachen
-#fiduwisi
-#land nur zb jede fünfte iteration -1
-#show cities different colours
-#big cities zuletzt generieren -> keine Überschreibung
-#titles for every help page
+#Boris Giba
+#2020
+#code is not optimised and not commented yet
 
 
 from tkinter import *
 from time import sleep
 import numpy as np
-
 import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg#, NavigationToolbar2TkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 
-
-#extending Label-Class #nvm, dismiss
-class Borderlabel(Frame):
-    #root=Tk()
-    #MyLabel(root, text='Hello World', myborderwidth=4, mybordercolor='red',
-    #    myborderplace='left').pack()
-
-    '''inherit from Frame to make a label with customized border'''
-    def __init__(self, parent,borderwidth=0, bordercolor=None,
-                 borderside="center",*args, **kwargs):
-        Label.__init__(self)
-        Frame.__init__(self, parent, bg=bordercolor)
-        self.propagate(False) # prevent frame from auto-fitting to contents
-        self.label = Label(self, *args, **kwargs) # make the label
-
-        # pack label inside frame according to which side the border
-        # should be on. If it's not 'left' or 'right', center the label
-        # and multiply the border width by 2 to compensate
-        if borderside=="left":
-            self.label.pack(side="right")
-        elif borderside=="right":
-            self.label.pack(side="left")
-        elif borderside=="top":
-            self.label.pack(side="top")
-        elif borderside=="bottom":
-            self.label.pack(side="bottom")
-        else:
-            self.label.pack()
-            borderwidth = borderwidth * 2
-
-        # set width and height of frame according to the req width
-        # and height of the label
-        self.config(width=self.label.winfo_reqwidth() + borderwidth)
-        self.config(height=self.label.winfo_reqheight())
-
-    def cconfig(self,config_label=0,**kwargs):
-        if config_label==0:
-            for key,value in kwargs.items():
-                if key=="bg":
-                    self.label.config(bg=value)
-                elif key=="fg":
-                    self.label.config(fg=value)
-                elif key=="text":
-                    self.label.config(text=value)
-        else:
-            for key,value in kwargs.items():
-                self.config(key=value)
-#Model
+#--------------------Model--------------------
 
 class Node(Label):
     
@@ -105,20 +31,6 @@ class Node(Label):
         self.level="low"
         self.value_limits=self.value_limits
         self.value_max=value_max
-
-    def cccconfig(self,config_label=0,**kwargs): #dismiss
-        print("e")
-        if config_label==0:
-            for key,value in kwargs.items():
-                if key=="bg":
-                    self.label.config(bg=value)
-                elif key=="fg":
-                    self.label.config(fg=value)
-                elif key=="text":
-                    self.label.config(text=value)
-        else:
-            for key,value in kwargs.items():
-                self.config(key=value)
         
     @classmethod
     def get_wind_colour(self,value):
@@ -195,14 +107,14 @@ class Node(Label):
         if self.value<self.value_limits[0]:
             #self.config(bg="DarkSeaGreen1",fg="black")#"DarkSeaGreen1")
             self.level="low"
-            self.config(bg="DarkSeaGreen1")
+            self.config(bg="DarkSeaGreen1",fg="black")
             if show_numbers==0:
                 self.config(fg="DarkSeaGreen1")
             
         elif self.value<self.value_limits[1]:
             #self.config(bg="PaleTurquoise1",fg="black")#"PaleTurquoise1")
             self.level="moderate"
-            self.config(bg="PaleTurquoise1")
+            self.config(bg="PaleTurquoise1",fg="black")
             if show_numbers==0:
                 self.config(fg="PaleTurquoise1")
             
@@ -210,13 +122,13 @@ class Node(Label):
         elif self.value<self.value_limits[2]:
             #self.config(bg="burlywood1",fg="black")#"burlywood1")
             self.level="medium"
-            self.config(bg="burlywood1")
+            self.config(bg="burlywood1",fg="black")
             if show_numbers==0:
                 self.config(fg="burlywood1")
         else:
             #self.config(bg="#ffcccb",fg="black")#"#ffcccb")
             self.level="high"
-            self.config(bg="#D62626")
+            self.config(bg="#D62626",fg="white")
             if show_numbers==0:
                 self.config(fg="#D62626")
 
@@ -361,7 +273,7 @@ class Wind(object):
         #     next_pos=-1
         #return next_pos
     
-#View
+#--------------------View--------------------
 
 class Help(Tk):
     def __init__(self):
@@ -1100,15 +1012,26 @@ class View(Tk):
         #self.geometry("900x510")
         self.main_frame=Frame(self,width=780,height=508,colormap="new",bg="white",padx=2,pady=2)
         self.main_frame.grid(column=0,row=0,sticky="nsew",padx=20,pady=20)
-        self.main_frame.grid_rowconfigure(0,weight=1)
-        self.main_frame.grid_columnconfigure(0,weight=1)
+        #self.main_frame.grid_rowconfigure(0,weight=1)
+        #self.main_frame.grid_columnconfigure(0,weight=1)
         #self.pad_frame=Frame(self,width=15,height=450,bg="navy")
         #self.pad_frame.grid(row=0,column=1)
         self.config_frame=Frame(self,width=50,height=100,colormap="new",bg="navy")
-        self.config_frame.grid(row=0,column=2,sticky="n",pady=0)#,columnspan=3,rowspan=3)
+        self.config_frame.grid(row=0,column=2,sticky="nsew",pady=0)#,columnspan=3,rowspan=3)
         #self.config_frame.grid_propagate(0)
-        self.config_frame.grid_rowconfigure(0,weight=1)
-        self.config_frame.grid_columnconfigure(0,weight=1)
+        for i in range(25):
+            self.main_frame.grid_rowconfigure(i,weight=1)
+        for i in range(25):
+            self.main_frame.grid_columnconfigure(i,weight=1)
+        for i in range(8):
+            self.config_frame.grid_rowconfigure(i,weight=1)
+        for i in range(1):
+            self.config_frame.grid_columnconfigure(i,weight=1)
+        for i in range(1):
+            self.rowconfigure(i,weight=1)
+        for i in range(1):
+            self.columnconfigure(i,weight=1)
+        self.config_frame.grid_columnconfigure(i,weight=1)
         self.config(bg="navy")
         self.nodes=[]
         self.node_matrix_temp=list(np.zeros((dim,dim)))
@@ -1119,7 +1042,7 @@ class View(Tk):
         for i in range(dim):
             for j in range(dim):
                 node=Node(self.main_frame,"basic",i,j)
-                node.grid(column=i,row=j)
+                node.grid(column=i,row=j,sticky="nsew")
                 self.nodes.append(node)
                 self.node_matrix[i][j]=node
 
@@ -1154,7 +1077,7 @@ class View(Tk):
         
                
 
-#Controller
+#--------------------Controller--------------------
 
 class Controller(object):
     def __init__(self,dim,amounts,wind_chance,width_chances=[],n_iterations=0): #0/1 überall gleiche Bedeutung, anpassen
@@ -1241,7 +1164,9 @@ class Controller(object):
                 for i in range(4):
                     node.value=int(node.value-node.value*scatter)
                     
-        self.update_monitor()
+        if self.show_cities==1:
+            self.mark_cities2(self.city_coords,colourise=0)            
+        #self.update_monitor()
         
         chance=np.random.randint(0,101)
         if chance<self.wind_chance*100:
@@ -1249,6 +1174,8 @@ class Controller(object):
             #print("eeeee")
         if len(self.winds)!=0 and len(self.wind_cache)>0:
             self.wind_step()
+
+        self.update_monitor()
         
         
     def choose_cities(self,amounts):
@@ -1302,21 +1229,27 @@ class Controller(object):
             node.configure_type("village")
             if colourise==0:
                 colour=node.get_city_colour(node.type)
-                
-                node.config(bg=colour,fg="white")
+                node.config(bg=colour,fg=colour)
+                if self.show_numbers==1:
+                    node.config(fg="white")
+                    
         for coords in coordslist[1]:
             node=self.view.node_matrix[coords[0]][coords[1]]
             node.configure_type("small city")
             if colourise==0:
                 colour=node.get_city_colour(node.type)
-                node.config(bg=colour,fg="white")
-
+                node.config(bg=colour,fg=colour)
+                if self.show_numbers==1:
+                    node.config(fg="white")
+                    
         for coords in coordslist[0]:
             node=self.view.node_matrix[coords[0]][coords[1]]
             node.configure_type("large city")
             if colourise==0:
                 colour=node.get_city_colour(node.type)
-                node.config(bg=colour,fg="white")
+                node.config(bg=colour,fg=colour)
+                if self.show_numbers==1:
+                    node.config(fg="white")
 
     def toggle_cities(self): #keep cities visible #show winds
         if self.show_cities==0:
@@ -1333,6 +1266,8 @@ class Controller(object):
                 node.config(bg=colour)
                 if self.show_numbers==0:
                     node.config(fg=colour)
+                else:
+                    node.config(fg="black")
 
     def toggle_winds(self):
         if self.show_winds==1:
@@ -1342,7 +1277,8 @@ class Controller(object):
                 for coords in coords_list:
                     node=self.view.node_matrix[coords[0]][coords[1]]
                     colour=Node.get_cell_colour(node.value)
-                    node.config(bg=colour,text=node.value)
+                    node.config(bg=colour)
+                    node.config(text=node.value)
                     if self.show_numbers==0:
                         node.config(fg=colour)
         else:
@@ -1354,8 +1290,10 @@ class Controller(object):
                     node=self.view.node_matrix[coords[0]][coords[1]]
                     movement=self.winds[i].movement
                     arrow=self.calculator.get_arrow(movement)
-                    colour=Node.get_wind_colour(node.value)
-                    node.config(bg=colour,text=arrow)
+                    if self.highlight_winds==0:
+                        colour=Node.get_wind_colour(node.value)
+                        node.config(bg=colour)
+                    node.config(text=arrow)
                     if node.value<node.value_limits[2]:
                         node.config(fg="black")
                     else:
@@ -1368,7 +1306,9 @@ class Controller(object):
             self.show_numbers=1
             self.view.toggle_numbers_button.config(text="hide numbers")
             for node in self.view.nodes:
-                node.config(fg="black")
+                node.config(fg="black",text=node.value)
+                if node.value>node.value_limits[2] or (self.show_cities and node.type!="basic"):
+                    node.config(fg="white")
         else:
             self.show_numbers=0
             self.view.toggle_numbers_button.config(text="show numbers")
@@ -1394,7 +1334,7 @@ class Controller(object):
         width_chance2=self.setup.width_chances_scale2.get()/100
         speed=self.setup.speed_scale.get()
         highlight_winds=self.setup.highlight_winds_var.get()
-        print(highlight_winds)
+        #print(highlight_winds)
 
         #self.dim
         self.wind_chance=wind_chance
@@ -1606,14 +1546,19 @@ class Controller(object):
                         colour=Node.get_wind_colour(level)
                     else:
                         colour=Node.get_cell_colour(level)
-                    self.view.node_matrix[coords[0]][coords[1]].config(bg=colour)
+                    if self.show_winds==1:
+                        self.view.node_matrix[coords[0]][coords[1]].config(bg=colour)
                     movement=self.winds[q].movement
                     arrow=self.calculator.get_arrow(movement)
-                    node.config(text=arrow)
                     
-                    if node.value<node.value_limits[2]:
+                    if self.show_numbers==0 and self.show_winds==1:
+                        node.config(text=arrow)
+                    elif self.show_winds==1:
+                        node.config(text=node.value)
+                    
+                    if node.value<node.value_limits[2] and self.show_winds==1:
                         node.config(fg="black")
-                    elif self.highlight_winds==1:
+                    elif self.highlight_winds==1 and self.show_winds==1:
                         node.config(fg="white")
                     
 
@@ -1695,19 +1640,8 @@ class Controller(object):
                         k+=1
                 l+=1
             
-class Start_up(Tk):
-    def __init__(self):
-        Tk.__init__(self)
-        self.geometry("500x650")
-        
-    def get_params(self):
-        pass
 
-#if __name__=="__main__": #test
-print("test")
+if __name__=="__main__":
+    c=Controller(25,[5,55,82],0.4,[0.5,0.25],0)
+    c.view.mainloop()
 
-c=Controller(25,[5,55,82],0.4,[0.5,0.25],0)
-#c=Controller(5,[0,1,1],0.4,[0.5,0.25],0)
-c.view.mainloop()
-
-print("test2")
