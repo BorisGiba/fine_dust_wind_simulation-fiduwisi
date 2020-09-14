@@ -24,9 +24,9 @@ contained in the exe-folder. The .exe-file was created using pyinstaller.
 
 If you can not or do not want to run the .exe-file you can run the fiduwisi.py-script instead.
 For this you will need:
-- Python >3.6
-- Numpy >1.17.2
-- Matplotlib >3.0.2
+- Python > 3.6
+- Numpy > 1.17.2
+- Matplotlib > 3.0.2
 
 ---
 
